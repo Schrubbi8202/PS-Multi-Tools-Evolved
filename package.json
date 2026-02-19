@@ -1,0 +1,14 @@
+{
+  "name": "ps-multi-tools-evolved-workspace",
+  "private": true,
+  "workspaces": [
+    "apps/web-ui",
+    "apps/desktop-electron"
+  ],
+  "scripts": {
+    "web:dev": "npm --workspace apps/web-ui run dev",
+    "web:build": "npm --workspace apps/web-ui run build",
+    "desktop:build": "npm --workspace apps/desktop-electron run build",
+    "desktop:dev": "npm run web:build && npm run desktop:build && set ELECTRON_RUN_AS_NODE=&& npx electron apps/desktop-electron/dist/main.js"
+  }
+}

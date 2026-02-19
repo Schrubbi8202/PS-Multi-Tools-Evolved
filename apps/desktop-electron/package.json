@@ -1,0 +1,17 @@
+{
+  "name": "psmt-desktop-electron",
+  "private": true,
+  "version": "0.1.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "set ELECTRON_RUN_AS_NODE=&& tsc -p tsconfig.json && electron ./dist/main.js"
+  },
+  "dependencies": {
+    "electron": "^40.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.0",
+    "typescript": "^5.9.3"
+  }
+}

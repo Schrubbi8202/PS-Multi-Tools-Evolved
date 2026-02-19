@@ -2,5 +2,15 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
   </Folder>
+  <Folder Name="/apps/">
+    <File Path="apps/desktop-electron/package.json" />
+    <File Path="apps/desktop-electron/tsconfig.json" />
+    <File Path="apps/web-ui/package.json" />
+    <File Path="apps/web-ui/tsconfig.json" />
+    <File Path="apps/web-ui/vite.config.ts" />
+  </Folder>
   <Project Path="PSMultiTools/PSMultiTools.csproj" />
+  <Project Path="src/PSMultiTools.Core/PSMultiTools.Core.csproj" />
+  <Project Path="src/PSMultiTools.Infrastructure/PSMultiTools.Infrastructure.csproj" />
+  <Project Path="src/PSMultiTools.ApiHost/PSMultiTools.ApiHost.csproj" />
 </Solution>

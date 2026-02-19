@@ -5,3 +5,10 @@
 bin
 obj
 packages
+node_modules
+dist
+apps/**/dist
+apps/**/.vite
+*.tsbuildinfo
+npm-debug.log*
+src/PSMultiTools.ApiHost/psmt-config.ini
