@@ -1,0 +1,127 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1120" d:DesignHeight="760"
+        x:Class="PSMultiTools.PS3.Tools.PS3MyrientDownloader"
+        Title="PS3 Myrient Downloader"
+        Width="1120"
+        Height="760"
+        CanResize="False"
+        CanMinimize="True"
+        RequestedThemeVariant="Dark"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="170" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Unified Myrient Intake (Redump + No-Intro)" FontSize="20" FontWeight="Bold" Foreground="White" />
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" Spacing="8">
+            <TextBlock Text="Source:" VerticalAlignment="Center" Foreground="White" />
+            <ComboBox x:Name="SourceComboBox" Width="420" />
+            <Button x:Name="RefreshIndexButton" Content="Refresh Index" Width="120" Click="RefreshIndexButton_Click" />
+            <TextBlock Text="Cache (hours):" VerticalAlignment="Center" Foreground="White" />
+            <NumericUpDown x:Name="CacheHoursNumeric" Width="80" Minimum="1" Maximum="720" Value="24" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" Spacing="8">
+            <TextBlock Text="Search:" VerticalAlignment="Center" Foreground="White" />
+            <TextBox x:Name="SearchTextBox" Width="300" Watermark="Title, ID or filename" TextChanged="SearchTextBox_TextChanged" />
+            <TextBlock Text="DKey folder:" VerticalAlignment="Center" Foreground="White" />
+            <TextBox x:Name="DKeyFolderTextBox" Width="430" />
+            <Button x:Name="BrowseDKeyFolderButton" Content="Browse" Width="90" Click="BrowseDKeyFolderButton_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" Spacing="8">
+            <TextBlock Text="RAP folder:" VerticalAlignment="Center" Foreground="White" />
+            <TextBox x:Name="RAPFolderTextBox" Width="300" />
+            <Button x:Name="BrowseRAPFolderButton" Content="Browse" Width="90" Click="BrowseRAPFolderButton_Click" />
+            <TextBlock Text="RAP TSV DB:" VerticalAlignment="Center" Foreground="White" />
+            <TextBox x:Name="RAPDatabaseTextBox" Width="290" />
+            <Button x:Name="BrowseRAPDatabaseButton" Content="Browse" Width="90" Click="BrowseRAPDatabaseButton_Click" />
+            <TextBlock Text="exdata path:" VerticalAlignment="Center" Foreground="White" />
+            <TextBox x:Name="ExdataRemotePathTextBox" Width="200" />
+        </StackPanel>
+
+        <GroupBox Grid.Row="4" Grid.Column="0" Header="Catalog" Margin="0,10,5,0">
+            <DockPanel>
+                <ListBox x:Name="CatalogListBox" SelectionMode="Single">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="90" />
+                                    <ColumnDefinition Width="90" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Source}" />
+                                <TextBlock Grid.Column="1" Text="{Binding Platform}" />
+                                <TextBlock Grid.Column="2" Text="{Binding Category}" />
+                                <TextBlock Grid.Column="3" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding AliasTooltip}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="4" Grid.Column="1" Header="Queue" Margin="5,10,0,0">
+            <DockPanel>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,8" Spacing="8">
+                    <Button x:Name="AddToQueueButton" Content="Add Selected" Width="120" Click="AddToQueueButton_Click" />
+                    <Button x:Name="RemoveFromQueueButton" Content="Remove Selected" Width="130" Click="RemoveFromQueueButton_Click" />
+                    <Button x:Name="ClearQueueButton" Content="Clear Queue" Width="110" Click="ClearQueueButton_Click" />
+                </StackPanel>
+                <ListBox x:Name="QueueListBox" SelectionMode="Single">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90" />
+                                    <ColumnDefinition Width="90" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Platform}" />
+                                <TextBlock Grid.Column="1" Text="{Binding Category}" />
+                                <TextBlock Grid.Column="2" Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </GroupBox>
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" Spacing="8">
+            <Button x:Name="ProcessAndUploadButton" Content="Process + Upload Queue" Width="210" Click="ProcessAndUploadButton_Click" />
+            <ProgressBar x:Name="JobProgressBar" Width="500" Height="22" Minimum="0" Maximum="100" />
+            <TextBlock x:Name="StatusTextBlock" Text="Idle" VerticalAlignment="Center" Foreground="White" />
+        </StackPanel>
+
+        <GroupBox Grid.Row="6" Grid.ColumnSpan="2" Header="Log" Margin="0,10,0,0">
+            <TextBox x:Name="LogTextBox" AcceptsReturn="True" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+        </GroupBox>
+    </Grid>
+</Window>
