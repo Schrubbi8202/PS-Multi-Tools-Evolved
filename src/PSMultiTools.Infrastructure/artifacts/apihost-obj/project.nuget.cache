@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZKMna52B/P0=",
+  "success": true,
+  "projectFilePath": "H:\\SW_Projects\\PS-Multi-Tools-Evolved\\src\\PSMultiTools.Infrastructure\\PSMultiTools.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Christian Schraa\\.nuget\\packages\\fluentftp\\53.0.2\\fluentftp.53.0.2.nupkg.sha512",
+    "C:\\Users\\Christian Schraa\\.nuget\\packages\\ini-parser-netstandard\\2.5.3\\ini-parser-netstandard.2.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}

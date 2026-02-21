@@ -1,0 +1,5 @@
+H:\SW_Projects\PS-Multi-Tools-Evolved\src\PSMultiTools.Core\artifacts\apihost-obj\Debug\net10.0\PSMultiTools.Core.GeneratedMSBuildEditorConfig.editorconfig
+H:\SW_Projects\PS-Multi-Tools-Evolved\src\PSMultiTools.Core\artifacts\apihost-obj\Debug\net10.0\PSMultiTools.Core.AssemblyInfoInputs.cache
+H:\SW_Projects\PS-Multi-Tools-Evolved\src\PSMultiTools.Core\artifacts\apihost-obj\Debug\net10.0\PSMultiTools.Core.AssemblyInfo.cs
+H:\SW_Projects\PS-Multi-Tools-Evolved\src\PSMultiTools.Core\artifacts\apihost-obj\Debug\net10.0\PSMultiTools.Core.csproj.CoreCompileInputs.cache
+H:\SW_Projects\PS-Multi-Tools-Evolved\src\PSMultiTools.Core\artifacts\apihost-obj\Debug\net10.0\PSMultiTools.Core.sourcelink.json
