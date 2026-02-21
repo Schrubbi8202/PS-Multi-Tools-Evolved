@@ -39,6 +39,85 @@ Following packages are required to run PS Multi Tools including all tools :
 > - ```wine, wine-gecko, wine-mono & winetricks``` if you don't want to create PKG files
 > - ```ufw``` if you don't want to send PKG files from your PC
 
+## New Web UI (In Progress)
+
+A staged UI migration is underway alongside the existing Avalonia desktop app.
+The new stack consists of three components that all need to be running together for full functionality.
+
+### Prerequisites
+- [Node.js 20+](https://nodejs.org/) (for the React web UI and Electron shell)
+- [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) (for the local API host)
+
+### 1. Start the API Host
+
+The backend that the UI talks to. Run from the repo root:
+
+```bash
+dotnet run --project src/PSMultiTools.ApiHost
+```
+
+By default it listens on `http://localhost:5000`.
+
+#### Private Library URL (Myrient/Archive Browser)
+
+The PS3 private archive browser reads its source URL and indexed roots from:
+
+- `src/PSMultiTools.Infrastructure/PS3LibraryService.cs`
+  - `PrivateArchiveBaseUrl` (host URL)
+  - `PrivateArchiveRoots` (indexed folders under `/files/...`)
+
+Example:
+
+```csharp
+private const string PrivateArchiveBaseUrl = "https://your-private-library-host";
+private static readonly string[] PrivateArchiveRoots =
+[
+    "/files/Redump/Sony%20-%20PlayStation%203/",
+    "/files/No-Intro/Sony%20-%20PlayStation%203%20%28PSN%29/"
+];
+```
+
+### 2. Start the Web UI (browser / dev mode)
+
+```bash
+cd apps/web-ui
+npm install        # first time only
+npm run dev        # starts Vite dev server (hot-reload)
+```
+
+Open the URL shown in the terminal (usually `http://localhost:5173`).
+
+To build a production bundle:
+
+```bash
+npm run build      # output goes to apps/web-ui/dist/
+npm run preview    # preview the production build locally
+```
+
+### 3. Start the Electron Desktop Shell (optional)
+
+Wraps the web UI in a native desktop window and auto-starts the API host.
+
+```bash
+cd apps/desktop-electron
+npm install        # first time only
+npm run dev        # compiles TypeScript then launches Electron
+```
+
+To build only the Electron TypeScript (without launching):
+
+```bash
+npm run build
+```
+
+> [!NOTE]
+> The existing Avalonia desktop app remains the production UI until the new web UI reaches feature parity.
+> Build and run the classic app with:
+> ```bash
+> dotnet build PSMultiTools/PSMultiTools.csproj
+> dotnet run --project PSMultiTools/PSMultiTools.csproj
+> ```
+
 ## Screenshots
 <p align="center">
 <img width="500" src="https://github.com/SvenGDK/PS-Multi-Tools/assets/84620/07f8bc89-2af0-40ef-b0ac-79bb84bb1894">
@@ -98,6 +177,13 @@ Following packages are required to run PS Multi Tools including all tools :
 - PUP Unpacker
 - RCO Dumper
 - SELF Reader
+- Myrient Downloader (Redump + No-Intro)
+  - Browse strict source roots for PS1/PS2/PS3 Redump and PS3/PSP No-Intro PSN content
+  - Download and extract archives locally
+  - PS1: merge multi-bin sets into a merged .bin + .cue
+  - PS3: decrypt encrypted ISOs using local `.dkey` files or key fallback
+  - PSN PKG licensing: resolve/create `.rap` by ContentID from local RAP folder, TSV database, or manual input
+  - Upload prepared content directly via FTP to `/dev_hdd0/PSXISO`, `/dev_hdd0/PS2ISO`, `/dev_hdd0/PS3ISO` or `/dev_hdd0/packages`
 - webMAN MOD Features
   - PS3NetSrv Utilities
     - Create folder structure (GAMES, PS3ISO, ...)

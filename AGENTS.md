@@ -251,6 +251,9 @@ PS-Multi-Tools-Evolved/
 
 ---
 
+Update (PS3 tools):
+- Added `PSMultiTools/PS3/Tools/PS3MyrientDownloader.axaml` and `PSMultiTools/PS3/Tools/PS3MyrientDownloader.axaml.cs` for the unified Redump/No-Intro intake pipeline.
+
 ## 5. Coding Conventions
 
 | Convention | Rule |
@@ -330,7 +333,7 @@ All tools listed below must remain accessible after any GUI redesign. Use `READM
 | PS1 | 2 | BIN/CUE→ISO, Merge BIN |
 | PS2 | 5 | BIN/CUE, CUE2POPS, ELF2KELF, STAR Extractor, PAKerUtility |
 | PSX | 4 | HDD Partition Manager, XMB Files Explorer, PS2/PS1 game install |
-| PS3 | 20+ | ISO tools, PKG extractor/info, PUP unpacker, webMAN, RCO, SELF reader |
+| PS3 | 20+ | ISO tools, PKG extractor/info, PUP unpacker, webMAN, RCO, SELF reader, Myrient downloader pipeline |
 | PS4 | 11 | PPPwn, PKG tools, payload sender, fPKG creators (PS1/PS2/PSP), USB writer |
 | PS5 | 25+ | PKG builder/merger/extractor, FTP grabber, param/manifest editors, SELF tools, game patches |
 | PSP | 4 | CSO decompress, ISO↔CSO, PBP pack/unpack |

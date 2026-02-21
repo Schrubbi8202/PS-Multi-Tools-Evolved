@@ -121,6 +121,11 @@ public partial class PS3Library : Window
         PKGDownloaderMenuItem.Click += OpenPKGBrowser;
         NewPS3Menu.MainMenu.Items.Insert(5, PKGDownloaderMenuItem);
 
+        // Add direct Myrient downloader entry
+        var myrientDownloaderMenuItem = new MenuItem() { Header = "Myrient Downloader" };
+        myrientDownloaderMenuItem.Click += OpenMyrientDownloader;
+        NewPS3Menu.MainMenu.Items.Insert(6, myrientDownloaderMenuItem);
+
         // Add supplemental emulator menu item
         if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Emulators", "rpcs3", "rpcs3.exe")))
         {
@@ -1872,6 +1877,12 @@ public partial class PS3Library : Window
     {
         var NewPKGBrowser = new PKGBrowser() { Console = "PS3", ShowActivated = true };
         NewPKGBrowser.Show();
+    }
+
+    private void OpenMyrientDownloader(object? sender, RoutedEventArgs e)
+    {
+        var newMyrientDownloader = new PS3MyrientDownloader() { ShowActivated = true };
+        newMyrientDownloader.Show();
     }
 
     private void EMU_Settings_Click(object? sender, RoutedEventArgs e)

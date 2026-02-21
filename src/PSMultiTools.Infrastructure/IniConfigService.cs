@@ -67,6 +67,11 @@ public sealed class IniConfigService : IConfigService
 
     private static ConfigDto MapToDto(IniData data)
     {
+        var savedIpsRaw = data["PS3 Tools"]["SavedIPs"];
+        string[]? savedIps = string.IsNullOrWhiteSpace(savedIpsRaw)
+            ? null
+            : savedIpsRaw.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
         return new ConfigDto(
             PS3Ip: data["PS3 Tools"]["IP"],
             PS5Ip: data["PS5 Tools"]["IP"],
@@ -80,7 +85,8 @@ public sealed class IniConfigService : IConfigService
             FtpLoadIcons: ParseBool(data["PS5 Library"]["FTPLoadIcons"], false),
             FtpLoadBackgrounds: ParseBool(data["PS5 Library"]["FTPLoadBackgrounds"], false),
             FtpScanAllUsb: ParseBool(data["PS5 Library"]["FTPScanAllUSB"], false),
-            FtpScanExt0: ParseBool(data["PS5 Library"]["FTPScanext0"], false)
+            FtpScanExt0: ParseBool(data["PS5 Library"]["FTPScanext0"], false),
+            SavedPs3Ips: savedIps
         );
     }
 
@@ -99,6 +105,10 @@ public sealed class IniConfigService : IConfigService
         data["PS5 Library"]["FTPLoadBackgrounds"] = dto.FtpLoadBackgrounds ? "True" : "False";
         data["PS5 Library"]["FTPScanAllUSB"] = dto.FtpScanAllUsb ? "True" : "False";
         data["PS5 Library"]["FTPScanext0"] = dto.FtpScanExt0 ? "True" : "False";
+        if (dto.SavedPs3Ips is not null)
+        {
+            data["PS3 Tools"]["SavedIPs"] = string.Join(",", dto.SavedPs3Ips);
+        }
     }
 
     private static int? ParseInt(string? value)

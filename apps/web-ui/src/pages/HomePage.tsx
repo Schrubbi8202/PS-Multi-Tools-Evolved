@@ -32,7 +32,7 @@ export function HomePage({ platforms }: Props) {
           <Paper
             key={platform.id}
             component={RouterLink}
-            to={`/platform/${platform.id}`}
+            to={platform.id === "ps3" ? "/platform/ps3/library" : `/platform/${platform.id}`}
             sx={{
               minWidth: 190,
               px: 2,

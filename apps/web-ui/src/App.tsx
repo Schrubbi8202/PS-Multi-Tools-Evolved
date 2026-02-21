@@ -4,7 +4,7 @@ import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import { AppBar, Box, Button, Stack, Toolbar, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { api } from "./api";
 import { AppShell } from "./components/AppShell";
 import { HomePage } from "./pages/HomePage";
@@ -54,6 +54,7 @@ export default function App() {
       <Box>
         <Routes>
           <Route path="/" element={<HomePage platforms={platformsQuery.data ?? []} />} />
+          <Route path="/platform/ps3" element={<Navigate to="/platform/ps3/library" replace />} />
           <Route path="/platform/:platformId" element={<PlatformPage platforms={platformsQuery.data ?? []} />} />
           <Route path="/platform/ps3/library" element={<Ps3LibraryPage />} />
           <Route path="/settings" element={<SettingsPage />} />

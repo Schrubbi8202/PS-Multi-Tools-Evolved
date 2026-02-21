@@ -110,6 +110,70 @@ app.MapPost("/api/ps3/actions/{actionId}", async ([FromRoute] string actionId, [
     return Results.Accepted($"/api/jobs/{job.JobId}", job);
 });
 
+app.MapGet("/api/ps3/library/cover/{itemId}", async ([FromRoute] string itemId, [FromServices] IPS3LibraryService ps3Service, CancellationToken ct) =>
+{
+    var bytes = await ps3Service.GetCoverImageAsync(itemId, ct);
+    if (bytes is null) return Results.NotFound();
+    return Results.File(bytes, "image/png");
+});
+
+app.MapGet("/api/ps3/covers/by-title-id/{titleId}", async ([FromRoute] string titleId, CancellationToken ct) =>
+{
+    try
+    {
+        using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(8) };
+        http.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+        var url = $"https://rpcs3.net/compat/api/covers/{Uri.EscapeDataString(titleId.ToUpperInvariant())}";
+        var bytes = await http.GetByteArrayAsync(url, ct);
+        if (bytes.Length < 100) return Results.NotFound();
+        var mime = bytes.Length > 3 && bytes[0] == 0xFF && bytes[1] == 0xD8 ? "image/jpeg" : "image/png";
+        return Results.File(bytes, mime);
+    }
+    catch
+    {
+        return Results.NotFound();
+    }
+});
+
+app.MapGet("/api/ps3/consoles/saved", async ([FromServices] IPS3LibraryService ps3Service, CancellationToken ct) =>
+{
+    var consoles = await ps3Service.GetSavedConsolesAsync(ct);
+    return Results.Ok(consoles);
+});
+
+app.MapPost("/api/ps3/consoles/save", async ([FromBody] SaveConsoleRequestDto request, [FromServices] IPS3LibraryService ps3Service, CancellationToken ct) =>
+{
+    await ps3Service.SaveConsoleAsync(request.Ip, request.Label, ct);
+    return Results.Ok();
+});
+
+app.MapPost("/api/ps3/consoles/discover", async ([FromBody] DiscoverConsolesRequestDto request, [FromServices] IPS3LibraryService ps3Service, CancellationToken ct) =>
+{
+    var found = await ps3Service.DiscoverConsolesAsync(request.SubnetPrefix, ct);
+    return Results.Ok(found);
+});
+
+app.MapGet("/api/ps3/myrient/catalog", async (
+    [FromQuery] string? search,
+    [FromQuery] string? platform,
+    [FromQuery] string? contentType,
+    [FromQuery] bool? refresh,
+    [FromServices] IPS3LibraryService ps3Service,
+    CancellationToken ct) =>
+{
+    var catalog = await ps3Service.GetPrivateArchiveCatalogAsync(search, platform, contentType, refresh ?? false, ct);
+    return Results.Ok(catalog);
+});
+
+app.MapPost("/api/ps3/myrient/download-rclone", async (
+    [FromBody] RcloneDownloadRequestDto request,
+    [FromServices] IPS3LibraryService ps3Service,
+    CancellationToken ct) =>
+{
+    var job = await ps3Service.StartPrivateArchiveRcloneDownloadAsync(request, ct);
+    return Results.Accepted($"/api/jobs/{job.JobId}", job);
+});
+
 app.MapGet("/api/jobs/{jobId:guid}", ([FromRoute] Guid jobId, [FromServices] IJobService jobService) =>
 {
     try

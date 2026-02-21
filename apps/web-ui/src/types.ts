@@ -57,6 +57,7 @@ export type ConfigDto = {
   ftpLoadBackgrounds: boolean;
   ftpScanAllUsb: boolean;
   ftpScanExt0: boolean;
+  savedPs3Ips: string[] | null;
 };
 
 export type JobStartResponseDto = {
@@ -78,4 +79,47 @@ export type EntryRouteResultDto = {
   route: string;
   intent: string;
   sourcePath: string;
+};
+
+export type SavedConsoleDto = {
+  ip: string;
+  label: string | null;
+  lastUsed: string;
+  online: boolean;
+};
+
+export type NetworkScanResultDto = {
+  ip: string;
+  reachable: boolean;
+  responseMs: number | null;
+};
+
+export type ArchiveVariantDto = {
+  id: string;
+  displayName: string;
+  url: string;
+  platform: string;
+  contentType: string;
+  region: string | null;
+  versionTag: string | null;
+  size: string | null;
+  modifiedAt: string | null;
+};
+
+export type ArchiveTitleGroupDto = {
+  id: string;
+  title: string;
+  platform: string;
+  contentType: string;
+  titleId: string | null;
+  coverUrl: string | null;
+  alternateTitles: string[];
+  variants: ArchiveVariantDto[];
+};
+
+export type ArchiveCatalogDto = {
+  indexedAt: string;
+  totalGroups: number;
+  totalVariants: number;
+  groups: ArchiveTitleGroupDto[];
 };

@@ -140,6 +140,12 @@ public partial class PS3Menu : UserControl
         NewFTPBrowser.Show();
     }
 
+    private void OpenMyrientDownloader_Click(object? sender, RoutedEventArgs e)
+    {
+        var newMyrientDownloader = new PS3MyrientDownloader() { ShowActivated = true };
+        newMyrientDownloader.Show();
+    }
+
     private void OpenPKGExtractor_Click(object? sender, RoutedEventArgs e)
     {
         var NewPKGExtractor = new PS3PKGExtractor() { ShowActivated = true };

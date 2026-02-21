@@ -30,6 +30,11 @@
 					</ToolTip.Tip>
 				</MenuItem>
 				<MenuItem Header="FTP Browser" x:Name="OpenFTPBrowser" Click="OpenFTPBrowser_Click"/>
+				<MenuItem Header="Myrient Downloader" x:Name="OpenMyrientDownloader" Click="OpenMyrientDownloader_Click">
+					<ToolTip.Tip>
+						Browse Redump and No-Intro content, then download, process and upload directly to your PS3 webMAN folders.
+					</ToolTip.Tip>
+				</MenuItem>
 				<MenuItem Header="ISO Tools" x:Name="OpenISOTools" Click="OpenISOTools_Click">
 					<ToolTip.Tip>
 						Contains ISO utilities to create, extract, split and patch PS3 ISO files.
